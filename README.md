@@ -54,7 +54,7 @@ To run the projects in this repository, follow the steps below:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/alx-backend-python.git
+   git clone https://github.com/Nadira3/alx-backend-python.git
    ```
 
 2. Navigate to the project directory:
