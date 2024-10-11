@@ -8,11 +8,11 @@ Description:
 
 from typing import TypeVar, Mapping, Any, Union
 
-type NoneType = None
 T = TypeVar('T')
 
 
 def safely_get_value(dct: Mapping, key: Any, default:
+                     Union[T, None] = None) -> Union[Any, T]:
     """
     Parameters:
         dct: dictionary
@@ -21,7 +21,6 @@ def safely_get_value(dct: Mapping, key: Any, default:
     Returns:
         any type
     """
-                     Union[T, NoneType] = None) -> Union[Any, T]:
     if key in dct:
         return dct[key]
     else:
