@@ -8,10 +8,9 @@ Description:
 
 
 from typing import Sequence, Any, Union
-type NoneType = None
 
 
-def safe_first_element(lst: Sequence[Any]) -> Union[Any, NoneType]:
+def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
     """
     Parameters:
         list: float number
