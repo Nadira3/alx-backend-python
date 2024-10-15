@@ -5,7 +5,6 @@ Description:
     async routine called wait_n that takes in 2 int arguments
 """
 
-
 import random
 import asyncio
 
@@ -16,20 +15,20 @@ async def wait_n(n: int, max_delay: int) -> list[float]:
     """
     Parameters:
         n: int -> number of spawn times
-        max_delay: delay time
+        max_delay: int -> maximum delay time
 
     Returns:
-        list
+        list[float]: list of delays
     """
-    wait_tasks = [wait_random(max_delay) for _ in range(n)]
+    wait_tasks: list[asyncio.Task] = [wait_random(max_delay) for _ in range(n)]
 
-    sorted_delays = []  # Initialize the list for sorted results
+    sorted_delays: list[float] = []  # Initialize the list for sorted results
 
     # Wait for each task to complete
     for task in asyncio.as_completed(wait_tasks):
-        delay = await task  # Get the completed delay
+        delay: float = await task  # Get the completed delay
         # Insert the delay in sorted order
-        inserted = False
+        inserted: bool = False
         for i in range(len(sorted_delays)):
             if delay < sorted_delays[i]:
                 sorted_delays.insert(i, delay)
