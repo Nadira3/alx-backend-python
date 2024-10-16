@@ -7,11 +7,12 @@ Description:
 
 import random
 import asyncio
+from typing import List
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> list[float]:
+async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     Parameters:
         n: int -> number of spawn times
@@ -20,9 +21,9 @@ async def wait_n(n: int, max_delay: int) -> list[float]:
     Returns:
         list[float]: list of delays
     """
-    wait_tasks: list[asyncio.Task] = [wait_random(max_delay) for _ in range(n)]
+    wait_tasks: List[asyncio.Task] = [wait_random(max_delay) for _ in range(n)]
 
-    sorted_delays: list[float] = []  # Initialize the list for sorted results
+    sorted_delays: List[float] = []  # Initialize the list for sorted results
 
     # Wait for each task to complete
     for task in asyncio.as_completed(wait_tasks):
