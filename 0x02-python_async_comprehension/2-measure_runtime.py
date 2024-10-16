@@ -21,15 +21,17 @@ async def measure_runtime() -> float:
     Parameters: None
 
     Returns:
-        float
+        float: The elapsed time in seconds for running
+        async_comprehension four times.
     """
-    tasks = [
-            async_comprehension(),
-            async_comprehension(),
-            async_comprehension(),
-            async_comprehension()
+    tasks: list[Coroutine[Any, Any, list[float]]] = [
+        async_comprehension(),
+        async_comprehension(),
+        async_comprehension(),
+        async_comprehension()
     ]
-    s = time.perf_counter()
+
+    s: float = time.perf_counter()
     await asyncio.gather(*tasks)
-    elapsed_time = time.perf_counter() - s
+    elapsed_time: float = time.perf_counter() - s
     return elapsed_time
