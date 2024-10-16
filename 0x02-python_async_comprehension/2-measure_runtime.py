@@ -11,7 +11,7 @@ Description:
 import random
 import asyncio
 import time
-from typing import Coroutine, Any
+from typing import Coroutine, Any, List
 
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
@@ -24,7 +24,7 @@ async def measure_runtime() -> float:
         float: The elapsed time in seconds for running
         async_comprehension four times.
     """
-    tasks: list[Coroutine[Any, Any, list[float]]] = [
+    tasks: List[Coroutine[Any, Any, List[float]]] = [
         async_comprehension(),
         async_comprehension(),
         async_comprehension(),
