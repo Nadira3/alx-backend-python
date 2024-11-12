@@ -4,7 +4,7 @@
 
 
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 from client import GithubOrgClient
 from parameterized import parameterized
 
@@ -42,6 +42,28 @@ class TestGithubOrgClient(unittest.TestCase):
             "login": org_name,
             "repos_url": f"https://api.github.com/orgs/{org_name}/repos"
         })
+
+    @patch('client.GithubOrgClient.org')
+    def test_public_repos_url(self, mock_org):
+        """Test that _public_repos_url returns the correct URL """
+
+        # Mock the return value of the org method (memoized method)
+        mock_org.return_value = MagicMock()
+        mock_org.return_value.login = "google"
+        mock_org.return_value.repos_url = "https://api.github.com/orgs/google/repos"
+
+        # Create an instance of GithubOrgClient with the 'google' org name
+        client = GithubOrgClient("google")
+
+        # Access the _public_repos_url property
+        public_repos_url = client._public_repos_url
+
+        # Assert that the _public_repos_url property returns the correct URL
+        self.assertEqual(public_repos_url,
+                         "https://api.github.com/orgs/google/repos")
+
+        # Ensure that the org method was called once
+        mock_org.assert_called_once()
 
 
 # Run the tests
