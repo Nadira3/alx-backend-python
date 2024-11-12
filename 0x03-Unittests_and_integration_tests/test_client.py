@@ -90,7 +90,6 @@ class TestGithubOrgClient(unittest.TestCase):
 
         # Call the public_repos method (without specifying a license).
         public_repos = client.public_repos()
-        print(public_repos)
 
         # The expected result should be a list of repo names.
         expected_repos = ["repo1", "repo2", "repo3"]
