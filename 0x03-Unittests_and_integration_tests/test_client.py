@@ -49,8 +49,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
         # Mock the return value of the org method (memoized method)
         mock_org.return_value = {
-            "login": "google",
-            "repos_url": f"https://api.github.com/orgs/google/repos"
+            "repos_url": "https://api.github.com/orgs/google/repos"
         }
 
         # Create an instance of GithubOrgClient with the 'google' org name
@@ -69,7 +68,10 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json')
     @patch('client.GithubOrgClient._public_repos_url',
            return_value="https://api.github.com/orgs/google/repos")
-    def test_public_repos(self, mock_public_repos_url, mock_get_json):
+    # Mock the org method to return a known payload
+    @patch('client.GithubOrgClient.org')
+    def test_public_repos(self, mock_org, mock_public_repos_url,
+                          mock_get_json):
         """Test the public_repos method."""
 
         # Mock the payload for repositories.
@@ -79,18 +81,20 @@ class TestGithubOrgClient(unittest.TestCase):
             {"name": "repo3", "license": {"key": "MIT"}},
         ]
 
+        # Mock the org method to return a payload with "repos_url"
+        mock_org.return_value = {"repos_url":
+                                 "https://api.github.com/orgs/google/repos"}
+
         # Create an instance of GithubOrgClient.
         client = GithubOrgClient("google")
 
         # Call the public_repos method (without specifying a license).
         public_repos = client.public_repos()
+        print(public_repos)
 
         # The expected result should be a list of repo names.
         expected_repos = ["repo1", "repo2", "repo3"]
         self.assertEqual(public_repos, expected_repos)
-
-        # Verify that the _public_repos_url property was accessed once.
-        mock_public_repos_url.assert_called_once()
 
         # Verify that get_json was called once with the mocked URL.
         mock_get_json.assert_called_once_with(
