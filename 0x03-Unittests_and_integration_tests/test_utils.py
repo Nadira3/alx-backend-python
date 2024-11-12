@@ -10,13 +10,14 @@ from utils import *
 
 
 class TestAccessNestedMap(unittest.TestCase):
-
+    """ test access_nested_map function class """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),  # Test case 1: simple case
         ({"a": {"b": 2}}, ("a",), {"b": 2}),  # Test case 2: nested dictionary
         ({"a": {"b": 2}}, ("a", "b"), 2),  # Test case 3
     ])
     def test_access_nested_map(self, nested_map, path, expected) -> None:
+        """ access_nested_map test method """
         # Test that access_nested_map returns the expected value
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
@@ -34,6 +35,7 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
+    """ test get_json function class """
 
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
@@ -41,6 +43,7 @@ class TestGetJson(unittest.TestCase):
     ])
     @patch('requests.get')  # Mocking requests.get
     def test_get_json(self, test_url, test_payload, mock_get) -> None:
+        """ get_json test method """
         # Create a mock response object
         mock_response = Mock()
         mock_response.json.return_value = test_payload
@@ -59,8 +62,10 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
+    """ test memoize decorator class """
 
     def test_memoize(self):
+        """ memoize test method """
         # Define a TestClass with memoized property
         class TestClass:
             def a_method(self):
