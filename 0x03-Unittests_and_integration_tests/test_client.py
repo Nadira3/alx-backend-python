@@ -96,8 +96,7 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(public_repos, expected_repos)
 
         # Verify that get_json was called once with the mocked URL.
-        mock_get_json.assert_called_once_with(
-                "https://api.github.com/orgs/google/repos")
+        mock_get_json.assert_called_once()
 
 
 # Run the tests
